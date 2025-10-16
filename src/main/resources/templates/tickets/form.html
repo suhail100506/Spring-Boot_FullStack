@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ticket Form</title>
+</head>
+<body>
+<h1 th:if="${ticket.id == null}">Create Ticket</h1>
+<h1 th:if="${ticket.id != null}">Edit Ticket</h1>
+<form th:action="${ticket.id == null} ? @{/tickets} : @{/tickets/update/{id}(id=${ticket.id})}" 
+th:object="${ticket}" method="post">
+    <select name = "userId" required>
+        <option value="">Select User</option>
+        <option th:each="user : ${users}"
+                th:value="${user.id}"
+                th:text="${user.name}">
+        </option>
+    </select>
+    <select name = "trainId" required>
+        <option value="">Select Train</option>
+         <option th:each="train : ${trains}"
+                th:value="${train.id}"
+                th:text="${train.name}">
+        </option>
+    </select>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>
